@@ -1,6 +1,3 @@
-# Se crea un txt de nombre .gitignore con todo esto
-# This .gitignore file should be placed at the root of your Unity project directory
-#
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
 #
 /[Ll]ibrary/
