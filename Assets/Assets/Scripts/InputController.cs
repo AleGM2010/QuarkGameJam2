@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class InputController : MonoBehaviour {
     private Vector2 fingerDownPosition;
@@ -13,12 +13,28 @@ public class InputController : MonoBehaviour {
     private Rigidbody2D ballRigidbody;
     [SerializeField]
     private Ball_Sound bs;
+    [SerializeField]
+    public Text vidas;
+    int v;
+    [SerializeField]
+    private RectTransform panelGameOver;
+
+
+   
+
     public InputAreaRestriction areaRestriction;
     private bool dentro = false;
     private bool patear = false;
+    Vector2 posicionInicialPelota;
+    
+    
 
     void Start() {
+        Time.timeScale = 1f;
         ballRigidbody = GetComponent<Rigidbody2D>();
+        posicionInicialPelota = transform.position;
+        v = 3;
+        vidas.text = v.ToString();
     }
     /*
     void Update() {
@@ -99,5 +115,33 @@ public class InputController : MonoBehaviour {
 
             }
         }
+    } // End update
+
+    private void FixedUpdate() {
+        if (v <= 0) {
+            Time.timeScale = 0f;         
+            panelGameOver.gameObject.SetActive(true);
+        }
     }
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.gameObject.CompareTag("ZonaGol")) {
+            Invoke("ReposicionPelota",0);
+        }
+    }
+    public void OnBecameInvisible() {
+        
+        //Debug.Log("Pelota salio del chat");
+        Invoke("ReposicionPelota",1);
+        v--;
+        vidas.text = v.ToString();
+    }
+   
+
+    public void ReposicionPelota() {
+        //Debug.Log("Pelota reposicionada");
+        ballRigidbody.angularVelocity = 0f;
+        ballRigidbody.velocity = new Vector2(0f,0f);
+        this.gameObject.transform.position = posicionInicialPelota;
+    }
+  
 }

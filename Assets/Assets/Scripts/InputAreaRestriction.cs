@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
-
 public class InputAreaRestriction : MonoBehaviour {
     [SerializeField]
     private RectTransform restrictedArea; // Assign a RectTransform in the Unity Inspector to define the restricted area
-
+  
+    
     public bool IsTouchInsideRestrictedArea(Vector2 touchPosition) {
         // Convert screen point to local point in the RectTransform
         Vector2 localPoint;
